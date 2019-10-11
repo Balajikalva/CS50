@@ -6,6 +6,8 @@
 // or  something of the kind like hashing . Will comeback to this later when done.
 
 int find(char a);
+bool check( string s);
+bool number(string s);
 
 int main(int argc, string argv[])
 {
@@ -17,6 +19,20 @@ int main(int argc, string argv[])
     else if (strlen(argv[1]) != 26)
     {
         printf("Key must contain 26 characters.\n");
+        return 1;
+    }
+    else
+    {
+        if (number( argv[1] ) == false)
+        {
+            printf("Key must only contain alhabetic characters.\n");
+            return 1;
+        }
+    }
+    
+    if (check( argv[1]) == false)
+    {
+        printf("Key must not contain repeated characters.\n");
         return 1;
     }
     
@@ -65,4 +81,45 @@ int find(char a)
     }
     
     return -1;
+}
+
+
+bool check( string s)
+{
+    int array[255] = {0};
+    
+    for (int i = 0, l = strlen(s) ; i < l ; i++)
+    {
+        if( isalpha( s[i]))
+        {
+            if (array[ (int) tolower(s[i]) ]== 1)
+            {
+                return false;
+            }
+            
+            array[ (int) tolower(s[i]) ] = 1; 
+        }
+        else
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool number(string s)
+{
+    int k = 0;
+    
+    while (s[k] != '\0')
+    {
+        if ( isalpha( s[k] ) == false)
+        {
+            return false;
+        }
+        
+        k++;
+    }
+   
+    return true;
 }
